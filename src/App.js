@@ -1,31 +1,25 @@
-import { Component } from "react";
+import { useState } from "react";
 import "./App.css"
 import ExpenseForm from "./components/ExpenseForm";
 import ExpenseList from "./components/ExpenseList";
 
-class App extends Component{
+const App = () => {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      expenses: [
+  const [expenses, setExpenses] = useState([
         {id: 1, charge: "rent", amount:1600},
         {id: 2, charge: "transport", amount:300},
         {id: 3, charge: "meal", amount:900}
-      ]
-    }
-  }  
+      ])
 
-  handleDelete = (id) => {
-    const newExpenses = this.state.expenses
+  const handleDelete = (id) => {
+    const newExpenses = expenses
                     .filter(expense => expense.id !== id)
     console.log(newExpenses)
     /* update state */
-    this.setState({expenses: newExpenses})
+    setExpenses(newExpenses)
 
   }
 
-  render() {
     return(
       <main className="main-container">
         <h1>budget calculator</h1>
@@ -34,8 +28,8 @@ class App extends Component{
           <ExpenseForm />
         </div>
         <div style={{width:'100%', background:'white', padding:'1rem'}}>
-          <ExpenseList initialExpenses={this.state.expenses}
-            handleDelete={this.handleDelete}
+          <ExpenseList initialExpenses={expenses}
+            handleDelete={handleDelete}
           />
         </div>
 
@@ -47,7 +41,7 @@ class App extends Component{
         </div>
       </main>
     )
-  }
+  
 }
 
 export default App;
